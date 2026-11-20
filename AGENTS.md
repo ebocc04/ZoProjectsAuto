@@ -31,6 +31,7 @@ Locost Seven chassis **1442**. Owner: Enzo. Site/repo: `ebocc04/ZoProjectsAuto` 
 - Size steps 1/4↔-6↔5/16 OK for this carb 181.
 - Mechanical pump: cap/block when electric is on.
 - Rejected: Evil Energy 75 psi deadhead; CPE nylon kit for pump gas.
+- Interim (until AN6 arrives): pull the unflared hard-line segment that was clamp-only (leak source). Run gasoline rubber for that whole stretch on the **back / non-plug side** of the engine (phone sketch #2) — away from plugs/distributor after the leak + clipped-wire flame. Clamp to barbs only; keep off exhaust and chassis chafe.
 
 ## Spark / fire risk
 - Cracked plug wire can arc to ground — fire risk with fuel vapor. Replace whole set.

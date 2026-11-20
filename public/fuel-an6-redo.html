@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AN6 fuel redo — chassis 1442</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #10140f;
+      --paper: #e8e2d4;
+      --steel: #8a9280;
+      --line: #2a3228;
+      --have: #3d7a4a;
+      --need: #b4542a;
+      --oncar: #3a6a8a;
+      --hose: #6a9bb8;
+      --fit: #c4a35a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--paper);
+      font-family: Barlow, system-ui, sans-serif;
+      line-height: 1.4;
+    }
+    header {
+      padding: 20px 24px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    header p {
+      margin: 0;
+      color: var(--steel);
+      font-size: 14px;
+      max-width: 720px;
+    }
+    .wrap { padding: 16px 24px 48px; max-width: 1100px; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin: 0 0 16px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 8px; }
+    .swatch {
+      width: 12px; height: 12px; border-radius: 2px;
+      display: inline-block;
+    }
+    .swatch.have { background: var(--have); }
+    .swatch.need { background: var(--need); }
+    .swatch.oncar { background: var(--oncar); }
+    .swatch.hose { background: var(--hose); }
+    .swatch.fit { background: var(--fit); }
+
+    .sheet {
+      background: #141914;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      overflow-x: auto;
+    }
+    svg.schematic {
+      width: 100%;
+      min-width: 920px;
+      height: auto;
+      display: block;
+    }
+    .node { fill: #1a2218; stroke: var(--fit); stroke-width: 1.5; }
+    .node-hose { fill: none; stroke: var(--hose); stroke-width: 6; stroke-linecap: round; }
+    .node-hose-thin { fill: none; stroke: var(--hose); stroke-width: 3.5; stroke-linecap: round; }
+    .label {
+      fill: var(--paper);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+    }
+    .label-sm { font-size: 9.5px; fill: var(--steel); }
+    .num {
+      fill: var(--bg);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge { font-family: "IBM Plex Mono", monospace; font-size: 9px; }
+    .have-fill { fill: var(--have); }
+    .need-fill { fill: var(--need); }
+    .oncar-fill { fill: var(--oncar); }
+
+    h2 {
+      margin: 28px 0 10px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+    td.mono { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    .tag {
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    .tag.have { background: var(--have); }
+    .tag.need { background: var(--need); }
+    .tag.oncar { background: var(--oncar); }
+    .tag.optional { background: #555; }
+    a { color: #9ec4e8; }
+    .notes {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--steel);
+      font-size: 13px;
+    }
+    .notes strong { color: var(--paper); }
+    @media print {
+      body { background: #fff; color: #111; }
+      header p, .legend, .label-sm, .notes { color: #444; }
+      .sheet { border-color: #ccc; background: #fff; }
+      .node { fill: #f5f5f5; stroke: #333; }
+      .label { fill: #111; }
+      a { color: #06c; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AN6 fuel redo — Locost 1442</h1>
+    <p>
+      Tank bung measured <b style="color:#e8e2d4">1/4″ NPT</b> (thread OD ~13.70 mm).
+      Hard line OD ~8 mm ≈ <b style="color:#e8e2d4">5/16″</b>.
+      Pump = Edelbrock 17302 (5/16″ barbs + screw-on prefilter).
+      Carbs = dual Super E/G — leave bowl barbs, short rubber stubs only at the end.
+      Path: tank → electric pump → filter → firewall → single-outlet 1–4 psi reg → Y → two carbs. Set reg ~2.5–3 psi.
+    </p>
+  </header>
+
+  <div class="wrap">
+    <div class="legend">
+      <span><i class="swatch have"></i> HAVE (bought / decided)</span>
+      <span><i class="swatch need"></i> NEED (buy)</span>
+      <span><i class="swatch oncar"></i> ON CAR (reuse / leave)</span>
+      <span><i class="swatch hose"></i> PTFE −6 hose</span>
+      <span><i class="swatch fit"></i> Fitting / component</span>
+    </div>
+
+    <div class="sheet">
+      <svg class="schematic" viewBox="0 0 1080 520" role="img" aria-label="AN6 fuel plumbing schematic">
+        <!-- flow spine -->
+        <path class="node-hose" d="M118 120 H 230" />
+        <path class="node-hose" d="M310 120 H 400" />
+        <path class="node-hose" d="M470 120 H 560" />
+        <path class="node-hose" d="M630 120 H 720" />
+        <path class="node-hose" d="M800 120 H 860" />
+        <path class="node-hose-thin" d="M910 100 H 980" />
+        <path class="node-hose-thin" d="M910 140 H 980" />
+        <path class="node-hose" d="M880 120 V 100" />
+        <path class="node-hose" d="M880 120 V 140" />
+
+        <!-- 1 tank -->
+        <rect class="node" x="24" y="70" width="70" height="100" rx="6" />
+        <circle class="oncar-fill" cx="40" cy="82" r="7" />
+        <text class="num" x="40" y="86" text-anchor="middle">1</text>
+        <text class="label" x="59" y="108" text-anchor="middle">TANK</text>
+        <text class="label-sm" x="59" y="122" text-anchor="middle">alum · rear</text>
+        <text class="label-sm" x="59" y="136" text-anchor="middle">bung 1/4 NPT ♀</text>
+        <text class="label-sm" x="59" y="150" text-anchor="middle">WEMA sender</text>
+
+        <!-- 2 adapter tank -->
+        <rect class="node" x="102" y="104" width="28" height="32" rx="3" />
+        <circle class="need-fill" cx="116" cy="90" r="7" />
+        <text class="num" x="116" y="94" text-anchor="middle">2</text>
+        <text class="label-sm" x="116" y="152" text-anchor="middle">1/4 NPT♂</text>
+        <text class="label-sm" x="116" y="164" text-anchor="middle">→ −6♂</text>
+
+        <!-- 3 hose A -->
+        <circle class="have-fill" cx="180" cy="90" r="7" />
+        <text class="num" x="180" y="94" text-anchor="middle">3</text>
+        <text class="label-sm" x="180" y="152" text-anchor="middle">PTFE −6</text>
+        <text class="label-sm" x="180" y="164" text-anchor="middle">+ hose end</text>
+
+        <!-- 4 chase inlet -->
+        <rect class="node" x="230" y="104" width="36" height="32" rx="3" />
+        <circle class="have-fill" cx="248" cy="90" r="7" />
+        <text class="num" x="248" y="94" text-anchor="middle">4</text>
+        <text class="label-sm" x="248" y="152" text-anchor="middle">Chase</text>
+        <text class="label-sm" x="248" y="164" text-anchor="middle">5/16→−6</text>
+
+        <!-- 5 pump -->
+        <rect class="node" x="274" y="78" width="56" height="84" rx="8" />
+        <circle class="have-fill" cx="302" cy="64" r="7" />
+        <text class="num" x="302" y="68" text-anchor="middle">5</text>
+        <text class="label" x="302" y="112" text-anchor="middle">17302</text>
+        <text class="label-sm" x="302" y="126" text-anchor="middle">5/16 barbs</text>
+        <text class="label-sm" x="302" y="138" text-anchor="middle">+ prefilter</text>
+        <text class="label-sm" x="302" y="150" text-anchor="middle">4–7 psi</text>
+
+        <!-- 6 chase outlet -->
+        <rect class="node" x="338" y="104" width="36" height="32" rx="3" />
+        <circle class="have-fill" cx="356" cy="90" r="7" />
+        <text class="num" x="356" y="94" text-anchor="middle">6</text>
+        <text class="label-sm" x="356" y="152" text-anchor="middle">Chase</text>
+        <text class="label-sm" x="356" y="164" text-anchor="middle">5/16→−6</text>
+
+        <!-- 7 hose B -->
+        <circle class="have-fill" cx="400" cy="90" r="7" />
+        <text class="num" x="400" y="94" text-anchor="middle">7</text>
+        <text class="label-sm" x="400" y="152" text-anchor="middle">PTFE −6</text>
+
+        <!-- 8 filter -->
+        <rect class="node" x="416" y="88" width="48" height="64" rx="14" />
+        <circle class="need-fill" cx="440" cy="74" r="7" />
+        <text class="num" x="440" y="78" text-anchor="middle">8</text>
+        <text class="label" x="440" y="118" text-anchor="middle">FILTER</text>
+        <text class="label-sm" x="440" y="168" text-anchor="middle">prefer −6</text>
+        <text class="label-sm" x="440" y="180" text-anchor="middle">or adapt Wix</text>
+
+        <!-- 9 hose C -->
+        <circle class="have-fill" cx="510" cy="90" r="7" />
+        <text class="num" x="510" y="94" text-anchor="middle">9</text>
+        <text class="label-sm" x="510" y="152" text-anchor="middle">PTFE −6</text>
+
+        <!-- 10 firewall -->
+        <rect class="node" x="540" y="70" width="16" height="100" rx="2" />
+        <circle class="need-fill" cx="548" cy="58" r="7" />
+        <text class="num" x="548" y="62" text-anchor="middle">10</text>
+        <text class="label-sm" x="548" y="188" text-anchor="middle">−6 bulkhead</text>
+        <text class="label-sm" x="548" y="200" text-anchor="middle">(or grommet)</text>
+
+        <!-- 11 hose D -->
+        <circle class="have-fill" cx="600" cy="90" r="7" />
+        <text class="num" x="600" y="94" text-anchor="middle">11</text>
+        <text class="label-sm" x="600" y="152" text-anchor="middle">PTFE −6</text>
+
+        <!-- 12 NPT adapter in -->
+        <rect class="node" x="630" y="104" width="32" height="32" rx="3" />
+        <circle class="need-fill" cx="646" cy="90" r="7" />
+        <text class="num" x="646" y="94" text-anchor="middle">12</text>
+        <text class="label-sm" x="646" y="152" text-anchor="middle">3/8 NPT♂</text>
+        <text class="label-sm" x="646" y="164" text-anchor="middle">→ −6♂</text>
+
+        <!-- 13 regulator -->
+        <rect class="node" x="670" y="88" width="70" height="64" rx="5" />
+        <circle class="need-fill" cx="705" cy="74" r="7" />
+        <text class="num" x="705" y="78" text-anchor="middle">13</text>
+        <text class="label" x="705" y="114" text-anchor="middle">REG</text>
+        <text class="label-sm" x="705" y="128" text-anchor="middle">1–4 psi</text>
+        <text class="label-sm" x="705" y="140" text-anchor="middle">3/8 NPT</text>
+        <text class="label-sm" x="705" y="168" text-anchor="middle">set ~2.5–3</text>
+
+        <!-- 14 NPT adapter out -->
+        <rect class="node" x="748" y="104" width="32" height="32" rx="3" />
+        <circle class="need-fill" cx="764" cy="90" r="7" />
+        <text class="num" x="764" y="94" text-anchor="middle">14</text>
+        <text class="label-sm" x="764" y="152" text-anchor="middle">3/8 NPT♂</text>
+        <text class="label-sm" x="764" y="164" text-anchor="middle">→ −6♂</text>
+
+        <!-- 15 hose E -->
+        <circle class="have-fill" cx="820" cy="90" r="7" />
+        <text class="num" x="820" y="94" text-anchor="middle">15</text>
+        <text class="label-sm" x="820" y="152" text-anchor="middle">PTFE −6</text>
+
+        <!-- 16 Y -->
+        <circle class="node" cx="880" cy="120" r="16" />
+        <circle class="need-fill" cx="880" cy="74" r="7" />
+        <text class="num" x="880" y="78" text-anchor="middle">16</text>
+        <text class="label" x="880" y="124" text-anchor="middle">Y</text>
+        <text class="label-sm" x="880" y="168" text-anchor="middle">−6 Y</text>
+
+        <!-- 17/18 stubs L -->
+        <rect class="node" x="980" y="82" width="44" height="36" rx="4" />
+        <circle class="need-fill" cx="940" cy="78" r="7" />
+        <text class="num" x="940" y="82" text-anchor="middle">17</text>
+        <text class="label" x="1002" y="100" text-anchor="middle">L</text>
+        <text class="label-sm" x="1002" y="112" text-anchor="middle">#7</text>
+        <text class="label-sm" x="940" y="68" text-anchor="middle">−6→barb</text>
+        <text class="label-sm" x="940" y="56" text-anchor="middle">+ rubber</text>
+
+        <!-- 17/18 stubs R -->
+        <rect class="node" x="980" y="122" width="44" height="36" rx="4" />
+        <circle class="need-fill" cx="940" cy="168" r="7" />
+        <text class="num" x="940" y="172" text-anchor="middle">18</text>
+        <text class="label" x="1002" y="140" text-anchor="middle">R</text>
+        <text class="label-sm" x="1002" y="152" text-anchor="middle">#7</text>
+        <text class="label-sm" x="940" y="188" text-anchor="middle">−6→barb</text>
+        <text class="label-sm" x="940" y="200" text-anchor="middle">+ rubber</text>
+
+        <!-- side notes -->
+        <rect class="node" x="24" y="230" width="1032" height="260" rx="8" />
+        <text class="label" x="44" y="258">TAKE-APART ORDER (front of car ← — → rear / tank)</text>
+        <text class="label-sm" x="44" y="280">18/17  Carb #7 barbs ON CAR — do not change. Short ethanol-rated rubber + clamp onto barb.</text>
+        <text class="label-sm" x="44" y="296">17/18  −6 male flare → 5/16″ (or match barb) hose barb. Hose end of PTFE line onto the −6 flare.</text>
+        <text class="label-sm" x="44" y="312">16     −6 AN Y (or T). One inlet from reg, two outlets to carbs.</text>
+        <text class="label-sm" x="44" y="328">15     PTFE −6 hose + female −6 hose end (from kit).</text>
+        <text class="label-sm" x="44" y="344">14+12  3/8″ male NPT → −6 male AN. Tape NPT only. Screws into reg ports.</text>
+        <text class="label-sm" x="44" y="360">13     Single-outlet carb reg, 1–4 psi, 3/8″ NPT (Speedway) — or Holley 12-804 and plug 2nd outlet.</text>
+        <text class="label-sm" x="44" y="376">11–9   PTFE −6 segments + hose ends. Use 45°/90° ends only where the bend needs it.</text>
+        <text class="label-sm" x="44" y="392">10     Prefer −6 bulkhead through firewall. Else grommet + chafe protection (no raw hole).</text>
+        <text class="label-sm" x="44" y="408">8      In-line filter after pump. Prefer native −6. Wix 33003 is 3/8 barb — only if adapted.</text>
+        <text class="label-sm" x="44" y="424">7+3    PTFE −6 (Evil Energy B0CQT1S1X8 kit — ethanol OK). Not the CPE kit.</text>
+        <text class="label-sm" x="44" y="440">6+4    Chase Bays 5/16″ clamp-on → −6. One on pump inlet, one on outlet.</text>
+        <text class="label-sm" x="44" y="456">5      Edelbrock 17302 + factory screw-on prefilter. Cap/block mechanical pump when electric is live.</text>
+        <text class="label-sm" x="44" y="472">2      1/4″ male NPT → −6 male AN into tank bung (replace existing 90° + 8 mm hard line).</text>
+        <text class="label-sm" x="44" y="488">1      Tank ON CAR. Measured bung = 1/4″ NPT. Leave WEMA sender alone.</text>
+      </svg>
+    </div>
+
+    <h2>Bill of materials — HAVE / NEED</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+          <th>Item</th>
+          <th>Spec</th>
+          <th>Qty</th>
+          <th>Notes / link cue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">1</td>
+          <td><span class="tag oncar">ON CAR</span></td>
+          <td>Fuel tank + bung</td>
+          <td class="mono">1/4″ NPT ♀ (OD ~13.70 mm)</td>
+          <td class="mono">1</td>
+          <td>Hard line was ~8 mm OD ≈ 5/16″ — removing for AN6</td>
+        </tr>
+        <tr>
+          <td class="mono">2</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Tank adapter</td>
+          <td class="mono">1/4″ NPT ♂ → −6 AN ♂</td>
+          <td class="mono">1</td>
+          <td>Evil Energy B0CGKS35C8 / Russell 660443. Optional 90° if routing needs it</td>
+        </tr>
+        <tr>
+          <td class="mono">3,7,9,11,15</td>
+          <td><span class="tag have">HAVE</span></td>
+          <td>PTFE −6 hose kit</td>
+          <td class="mono">Evil Energy B0CQT1S1X8 · 20 ft · ethanol OK</td>
+          <td class="mono">1 kit</td>
+          <td>Cut segments + use kit hose ends (straight / 45 / 90). Not the CPE kit</td>
+        </tr>
+        <tr>
+          <td class="mono">4,6</td>
+          <td><span class="tag have">HAVE</span></td>
+          <td>Pump barb adapters</td>
+          <td class="mono">Chase Bays 5/16″ → −6</td>
+          <td class="mono">2</td>
+          <td>Inlet + outlet on 17302</td>
+        </tr>
+        <tr>
+          <td class="mono">5</td>
+          <td><span class="tag have">HAVE</span></td>
+          <td>Electric fuel pump</td>
+          <td class="mono">Edelbrock 17302 · 4–7 psi · 5/16″ + prefilter</td>
+          <td class="mono">1</td>
+          <td>Gas twin is 17301 long-term. Cap mechanical pump on block</td>
+        </tr>
+        <tr>
+          <td class="mono">8</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Post-pump filter</td>
+          <td class="mono">Prefer −6 in/out · ≤40 µm</td>
+          <td class="mono">1</td>
+          <td>Wix 33003 on car is 3/8 barb — replace with −6 filter or adapt (extra parts)</td>
+        </tr>
+        <tr>
+          <td class="mono">10</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Firewall pass</td>
+          <td class="mono">−6 bulkhead (best) or grommet</td>
+          <td class="mono">1</td>
+          <td>Optional if existing hole + soft protection already OK</td>
+        </tr>
+        <tr>
+          <td class="mono">13</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Fuel pressure regulator</td>
+          <td class="mono">1–4 psi · single out · 3/8″ NPT</td>
+          <td class="mono">1</td>
+          <td>Speedway B098HQ1XVC — or Holley 12-804 + plug 2nd outlet. Set ~2.5–3 psi</td>
+        </tr>
+        <tr>
+          <td class="mono">12,14</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Reg adapters</td>
+          <td class="mono">3/8″ NPT ♂ → −6 AN ♂</td>
+          <td class="mono">2</td>
+          <td>Evil Energy B0BPSBF6F4 2-pack. Tape NPT side only</td>
+        </tr>
+        <tr>
+          <td class="mono">16</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Split to carbs</td>
+          <td class="mono">−6 AN Y (or T)</td>
+          <td class="mono">1</td>
+          <td>After reg, before the two carb legs</td>
+        </tr>
+        <tr>
+          <td class="mono">17,18</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Carb stubs</td>
+          <td class="mono">−6♂ → 5/16″ barb + rubber + clamps</td>
+          <td class="mono">2 sets</td>
+          <td>Match actual #7 barb OD. Ethanol-rated rubber (SAE 30R9 / Barricade). Leave carb fittings alone</td>
+        </tr>
+        <tr>
+          <td class="mono">—</td>
+          <td><span class="tag need">NEED</span></td>
+          <td>Mechanical pump block</td>
+          <td class="mono">NPT plugs or block-off</td>
+          <td class="mono">as fit</td>
+          <td>When electric is on</td>
+        </tr>
+        <tr>
+          <td class="mono">—</td>
+          <td><span class="tag optional">OPT</span></td>
+          <td>Pressure gauge</td>
+          <td class="mono">0–15 psi · 1/8″ NPT</td>
+          <td class="mono">1</td>
+          <td>Tee at reg gauge port or temporary at #7 for setup</td>
+        </tr>
+        <tr>
+          <td class="mono">—</td>
+          <td><span class="tag have">HAVE</span></td>
+          <td>PTFE tape / sealant</td>
+          <td class="mono">fuel-rated</td>
+          <td class="mono">—</td>
+          <td>NPT threads only — never on AN flare</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notes">
+      <strong>Missing to buy (short list):</strong>
+      (2) 1/4 NPT→−6 tank adapter ·
+      (8) −6 fuel filter ·
+      (10) −6 bulkhead optional ·
+      (13) 1–4 psi 3/8 NPT reg ·
+      (12+14) 3/8 NPT→−6 ×2 ·
+      (16) −6 Y ·
+      (17+18) −6→barb ×2 + rubber + clamps ·
+      mechanical pump plugs.
+      <br /><br />
+      <strong>Already covered:</strong> PTFE kit · Chase 5/16→−6 ×2 · Edelbrock 17302 + prefilter · tank/carbs on car.
+      <br /><br />
+      Open in the SPA: Diagram on fuel parts, or this page at
+      <a href="./fuel-an6-redo.html">/fuel-an6-redo.html</a>
+      (GitHub Pages: <code>…/ZoProjectsAuto/fuel-an6-redo.html</code>).
+    </div>
+  </div>
+</body>
+</html>

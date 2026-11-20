@@ -323,79 +323,95 @@ const SKETCH = {
   },
 
   fuel(active) {
-    const arr = (x) => `<polygon class="arrow-head" points="${x - 6},184 ${x},190 ${x - 6},196" />`;
+    const arr = (x, y = 168) => `<polygon class="arrow-head" points="${x - 5},${y - 5} ${x},${y} ${x - 5},${y + 5}" />`;
     return `
-      <text class="title-note" x="24" y="28">Fuel install order — one regulator, then the tee you already have</text>
-      <text class="title-note" x="24" y="46">Holley 12-804 is that regulator. Cut after the filter, before the tee. Arrow toward the carbs.</text>
+      <text class="title-note" x="16" y="22">AN6 redo — PTFE ethanol hose · full take-apart BOM: fuel-an6-redo.html</text>
+      <text class="title-note" x="16" y="38">Tank bung 1/4 NPT · pump 17302 5/16 · reg 3/8 NPT 1–4 psi · rubber stubs only at #7</text>
 
       <g class="hot ${onCls("fuel-hardware", active)}" data-part="fuel-hardware">
-        <rect class="tank" x="20" y="148" width="72" height="86" rx="7" />
-        <rect class="cover" x="42" y="140" width="28" height="10" rx="2" />
-        <text class="call" x="56" y="186" text-anchor="middle">TANK</text>
-        <text class="call" x="56" y="204" text-anchor="middle">rear</text>
+        <rect class="tank" x="12" y="100" width="58" height="72" rx="6" />
+        <text class="call" x="41" y="132" text-anchor="middle">TANK</text>
+        <text class="call" x="41" y="148" text-anchor="middle">1/4 NPT</text>
       </g>
-      <text class="stamp" x="56" y="252" text-anchor="middle">1</text>
-      <path class="hose" d="M92 190 L126 190" />
-      ${arr(126)}
+      <text class="stamp" x="41" y="190" text-anchor="middle">1</text>
+      <rect class="box" x="74" y="126" width="22" height="20" rx="2" />
+      <text class="stamp" x="85" y="190" text-anchor="middle">2</text>
+      <path class="hose" d="M96 136 H118" />
+      ${arr(118, 136)}
+
+      <g class="hot ${onCls("fuel-hose", active)}" data-part="fuel-hose">
+        <path class="hose" d="M118 136 H148" />
+      </g>
+      <text class="stamp" x="133" y="190" text-anchor="middle">3</text>
+      <rect class="box" x="150" y="126" width="28" height="20" rx="2" />
+      <text class="stamp" x="164" y="190" text-anchor="middle">4</text>
 
       <g>
-        <rect class="box" x="128" y="162" width="92" height="56" rx="5" />
-        <text class="call" x="174" y="186" text-anchor="middle">MECH PUMP</text>
-        <text class="call" x="174" y="204" text-anchor="middle">cam-driven</text>
+        <rect class="reg" x="184" y="108" width="52" height="56" rx="6" />
+        <text class="call" x="210" y="132" text-anchor="middle">17302</text>
+        <text class="call" x="210" y="148" text-anchor="middle">+ pre</text>
       </g>
-      <text class="stamp" x="174" y="252" text-anchor="middle">2</text>
-      <path class="hose" d="M220 190 L252 190" />
-      ${arr(252)}
+      <text class="stamp" x="210" y="190" text-anchor="middle">5</text>
+      <rect class="box" x="242" y="126" width="28" height="20" rx="2" />
+      <text class="stamp" x="256" y="190" text-anchor="middle">6</text>
+      <path class="hose" d="M270 136 H298" />
+      ${arr(298, 136)}
+      <text class="stamp" x="284" y="190" text-anchor="middle">7</text>
 
       <g class="hot ${onCls("fuel-filter", active)}" data-part="fuel-filter">
-        <rect class="cover" x="254" y="158" width="40" height="64" rx="12" />
-        <circle cx="274" cy="172" r="4" />
-        <circle cx="274" cy="208" r="4" />
-        <text class="call" x="274" y="196" text-anchor="middle">Wix</text>
+        <rect class="cover" x="300" y="112" width="36" height="48" rx="10" />
+        <text class="call" x="318" y="140" text-anchor="middle">FIL</text>
       </g>
-      <text class="stamp" x="274" y="252" text-anchor="middle">3</text>
-      <text class="call" x="274" y="270" text-anchor="middle">33003</text>
-      <path class="hose" d="M294 190 L328 190" />
-      ${arr(328)}
+      <text class="stamp" x="318" y="190" text-anchor="middle">8</text>
+      <path class="hose" d="M336 136 H360" />
+      ${arr(360, 136)}
+      <text class="stamp" x="348" y="190" text-anchor="middle">9</text>
+
+      <rect class="rail" x="364" y="96" width="10" height="80" rx="1" />
+      <text class="stamp" x="369" y="190" text-anchor="middle">10</text>
+      <path class="hose" d="M374 136 H400" />
+      ${arr(400, 136)}
+      <text class="stamp" x="387" y="190" text-anchor="middle">11</text>
+
+      <rect class="box" x="402" y="126" width="22" height="20" rx="2" />
+      <text class="stamp" x="413" y="190" text-anchor="middle">12</text>
+      <g class="hot ${onCls("carb", active)}" data-part="carb">
+        <rect class="reg" x="428" y="112" width="70" height="48" rx="5" />
+        <text class="call" x="463" y="132" text-anchor="middle">REG</text>
+        <text class="call" x="463" y="148" text-anchor="middle">1–4 · 3/8</text>
+      </g>
+      <text class="stamp" x="463" y="190" text-anchor="middle">13</text>
+      <rect class="box" x="502" y="126" width="22" height="20" rx="2" />
+      <text class="stamp" x="513" y="190" text-anchor="middle">14</text>
+      <path class="hose" d="M524 136 H552" />
+      ${arr(552, 136)}
+      <text class="stamp" x="538" y="190" text-anchor="middle">15</text>
+
+      <circle class="tube" cx="564" cy="136" r="11" />
+      <text class="call" x="564" y="140" text-anchor="middle">Y</text>
+      <text class="stamp" x="564" y="190" text-anchor="middle">16</text>
+      <path class="hose" d="M564 125 V98 H600" />
+      <path class="hose" d="M564 147 V174 H600" />
+      <polygon class="arrow-head" points="594,93 600,98 594,103" />
+      <polygon class="arrow-head" points="594,169 600,174 594,179" />
 
       <g class="hot ${onCls("carb", active)}" data-part="carb">
-        <rect class="reg" x="330" y="158" width="96" height="64" rx="5" />
-        <text class="call" x="378" y="184" text-anchor="middle">12-804</text>
-        <text class="call" x="378" y="202" text-anchor="middle">regulator · ~2 psi</text>
+        <rect class="body" x="602" y="80" width="50" height="32" rx="4" />
+        <text class="call" x="627" y="100" text-anchor="middle">L #7</text>
+        <rect class="body" x="602" y="158" width="50" height="32" rx="4" />
+        <text class="call" x="627" y="178" text-anchor="middle">R #7</text>
       </g>
-      <text class="stamp" x="378" y="252" text-anchor="middle">4</text>
-      <path class="hose" d="M426 190 L458 190" />
-      ${arr(458)}
-
-      <g>
-        <circle class="tube" cx="470" cy="190" r="10" />
-        <path class="hose" d="M470 180 L470 118 L500 118" />
-        <path class="hose" d="M470 200 L470 262 L500 262" />
-        <text class="call" x="470" y="292" text-anchor="middle">TEE</text>
-      </g>
-      <text class="stamp" x="470" y="308" text-anchor="middle">5</text>
-      <polygon class="arrow-head" points="494,112 500,118 494,124" />
-      <polygon class="arrow-head" points="494,256 500,262 494,268" />
-
-      <g class="hot ${onCls("carb", active)}" data-part="carb">
-        <rect class="body" x="502" y="100" width="58" height="36" rx="4" />
-        <rect class="cover" x="512" y="86" width="38" height="16" rx="3" />
-        <text class="call" x="531" y="122" text-anchor="middle">CARB L</text>
-        <text class="call" x="531" y="148" text-anchor="middle">#7</text>
-        <rect class="body" x="502" y="244" width="58" height="36" rx="4" />
-        <rect class="cover" x="512" y="230" width="38" height="16" rx="3" />
-        <text class="call" x="531" y="266" text-anchor="middle">CARB R</text>
-        <text class="call" x="531" y="292" text-anchor="middle">#7</text>
-      </g>
-      <text class="stamp" x="531" y="328" text-anchor="middle">6</text>
+      <text class="stamp" x="627" y="70" text-anchor="middle">17</text>
+      <text class="stamp" x="627" y="210" text-anchor="middle">18</text>
 
       <g class="hot ${onCls("gm-30", active)}" data-part="gm-30">
-        <path class="block-ghost" d="M568 132 L618 132 L628 168 L628 268 L568 268 Z" />
-        <text class="call" x="598" y="206" text-anchor="middle">181</text>
+        <path class="block-ghost" d="M660 100 L710 100 L718 130 L718 180 L660 180 Z" />
+        <text class="call" x="689" y="146" text-anchor="middle">181</text>
       </g>
 
-      <text class="title-note" x="24" y="360">Do not put the regulator between the tank and the pump.</text>
-      <text class="title-note" x="24" y="378">Keep the tee and plug the unused 12-804 outlet. Or drop the tee and run one outlet to each #7.</text>
+      <text class="title-note" x="16" y="230">2 = 1/4 NPT→−6 · 4+6 = Chase 5/16→−6 · 12+14 = 3/8 NPT→−6 · 17+18 = −6→barb + short rubber</text>
+      <text class="title-note" x="16" y="248">Cap mechanical pump. Size hops 1/4→−6→5/16 are fine for this carb engine.</text>
+      <text class="title-note" x="16" y="266">Open public/fuel-an6-redo.html for full HAVE/NEED table + print sheet.</text>
     `;
   },
 
@@ -720,7 +736,7 @@ window.sketchSVG = function sketchSVG(systemId, activePart) {
   const useTune = systemId === "carb-tune" || (systemId === "engine" && activePart === "ss-carb-notes");
   const useFuel = !useTune && (systemId === "fuel" || (systemId === "engine" && fuelParts.includes(activePart)));
   const wide = systemId === "electrical";
-  BOX = { w: wide ? 720 : 640, h: useTune ? 460 : wide ? 460 : 420 };
+  BOX = { w: wide ? 720 : useFuel ? 740 : 640, h: useTune ? 460 : useFuel ? 290 : wide ? 460 : 420 };
   const draw = useTune ? SKETCH.carbTune : useFuel ? SKETCH.fuel : SKETCH[systemId];
   const inner = draw
     ? draw(activePart)

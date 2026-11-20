@@ -23,14 +23,14 @@ Locost Seven chassis **1442**. Owner: Enzo. Site/repo: `ebocc04/ZoProjectsAuto` 
 - Throttle: return spring + free linkage (sticky return was mechanical).
 
 ## Fuel system (current redo)
-- Skip Holley **12-804** as permanent plan (was temp; 1–4 psi, inlet ≤7).
-- Original electric pump found: **Edelbrock 17302** — 4–7 psi, 38 GPH, **5/16″ barbs**, officially **diesel-only**. Gas twin = **17301**.
-- Path: carb-pressure pump → low-pressure dual-outlet reg (~**2.5–3 psi**) → dual bowls. Prefer native AN6 / ORB-06 where possible.
-- Good pumps: Aeromotive **13222** (1.5–5 psi, dual ORB-06), Facet 40104/40106, ATL CFD-600-LP.
-- Rejected: Evil Energy 75 psi deadhead. Evil Energy only with real bypass + return + reg.
-- AN6 from 17302 barbs: Chase Bays / Pegasus clamp-on 5/16→-6, or short 5/16 rubber stubs + Amazon -6 male flare ↔ 5/16 barb jumpers (local stores don’t stock clamp-on).
-- Mechanical pump: leave capped (NPT plugs) or block-off when electric is on.
-- Rubber fuel lines refreshed; full AN6 redo later / bench then tuck.
+- Schematic + HAVE/NEED: `public/fuel-an6-redo.html` (also SPA fuel diagram).
+- Tank bung measured **1/4″ NPT** (thread OD ~13.70 mm). Old hard line OD ~8 mm ≈ **5/16″**.
+- Electric pump: **Edelbrock 17302** — 4–7 psi, 38 GPH, **5/16″ barbs**, screw-on prefilter. Officially diesel-only; gas twin = **17301**. Chase Bays **5/16→-6** ×2 on pump.
+- Hose: Evil Energy **PTFE** -6 kit (B0CQT1S1X8) — ethanol/E10 OK. Do **not** use CPE kit (not E10 rated).
+- Path: tank **1/4 NPT→-6** → PTFE → Chase → 17302 → Chase → PTFE → filter → firewall → **3/8 NPT→-6** → single-outlet **1–4 psi** reg (set ~**2.5–3**) → **3/8 NPT→-6** → PTFE → **-6 Y** → **-6→barb** + short rubber → Super E/G #7 (leave carb barbs).
+- Size steps 1/4↔-6↔5/16 OK for this carb 181.
+- Mechanical pump: cap/block when electric is on.
+- Rejected: Evil Energy 75 psi deadhead; CPE nylon kit for pump gas.
 
 ## Spark / fire risk
 - Cracked plug wire can arc to ground — fire risk with fuel vapor. Replace whole set.

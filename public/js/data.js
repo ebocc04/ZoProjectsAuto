@@ -90,6 +90,15 @@ window.ZO = {
         "GM Vortec 3.0L four. Enzo 9 Nov 2026: two S&S Super E/G carbs, custom on the 181. After a few minutes they spill, idle dies, then it shuts off. 10 Nov 2026: previous owner took the electric pump off; mechanical (engine-driven) now. Easy path: measure running pressure, Holley 12-804 if high (inlet limit 7 psi), needle 11-2195 and seat 11-2465 both sides. Super E/G have an enrichment lever, not a choke. Kept clutch is AWS 04-065 with flywheel bolts MTM 140052, fork 15592270, ball stud 15592268, pilot 3914000, T/O 614018. NAPA V-belt 25-7417, Timken seals, fuel line H-176. Buck's line 15530202 is printed IRRIGATION — unidentified. Need a new valve cover (not the head) 8M0122491. Buy list: Wix 33003, gasket Sierra 18-0347 / SME180347. Thermostat housing pulled and cleaned 10 Nov 2026. Waiting on 18-0164-9. Filter stubs: two ~4 in of 3/8 (1 ft of H350A) plus Gates 28594. Not bought yet."
     },
     {
+      id: "fuel",
+      name: "Fuel AN6 redo",
+      short: "Tank → 17302 → PTFE −6 → reg → dual carbs",
+      status: "replace",
+      statusLabel: "Plumbing redo",
+      summary:
+        "20 Nov 2026 plan: Edelbrock 17302 electric + Chase 5/16→−6, Evil Energy PTFE −6 (not CPE), tank bung 1/4 NPT→−6, single-outlet 1–4 psi 3/8 NPT reg with 3/8→−6 adapters, −6 Y, short rubber at #7 only. Full labeled BOM: public/fuel-an6-redo.html. Cap mechanical pump when electric is on. Set reg ~2.5–3 psi for Super E/G."
+    },
+    {
       id: "cooling",
       name: "Cooling",
       short: "JEGS −12AN roadster radiator",

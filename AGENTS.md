@@ -35,6 +35,7 @@ Locost Seven chassis **1442**. Owner: Enzo. Site/repo: `ebocc04/ZoProjectsAuto` 
 ## Spark / fire risk
 - Cracked plug wire can arc to ground — fire risk with fuel vapor. Replace whole set.
 - Stamp **GMC 907901** did not resolve as wires (Monroe strut). Closest store hit: Duralast **9079**. Match HEI vs EST + lengths for 181 (marine: Quicksilver 84-816761Q14 / Sierra 18-8833-1 for EST).
+- Measured on hand (phone calipers, Nov 2026): wire **8 mm**, boot OD **13.70 mm**. Short black lead — short bell (cap/coil) boot + long deep-well plug boot with grip rib.
 
 ## Seats / body
 - Budget seats: target ~18.5″ width; Amazon brown seats too wide. Prefer used Miata; skip $500 Cobras. Bare metal no. Cognac vinyl sheets discussed for upholstery DIY.

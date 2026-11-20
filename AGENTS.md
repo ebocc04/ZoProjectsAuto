@@ -24,7 +24,7 @@ Locost Seven chassis **1442**. Owner: Enzo. Site/repo: `ebocc04/ZoProjectsAuto` 
 
 ## Fuel system (current redo)
 - Schematic + HAVE/NEED: `public/fuel-an6-redo.html` (also SPA fuel diagram).
-- Tank bung measured **1/4″ NPT** (thread OD ~13.70 mm). Old hard line OD ~8 mm ≈ **5/16″**.
+- Tank bung measured **1/4″ NPT** (thread OD ~13.70 mm). Old hard line OD ~8 mm ≈ **5/16″**. Top bung + dip tube to floor; 17302 gravity-fed → mount pump **below fuel level**, short primed inlet (siphon path).
 - Electric pump: **Edelbrock 17302** — 4–7 psi, 38 GPH, **5/16″ barbs**, screw-on prefilter. Officially diesel-only; gas twin = **17301**. Chase Bays **5/16→-6** ×2 on pump.
 - Hose: Evil Energy **PTFE** -6 kit (B0CQT1S1X8) — ethanol/E10 OK. Do **not** use CPE kit (not E10 rated).
 - Path: tank **1/4 NPT→-6** → PTFE → Chase → 17302 → Chase → PTFE → **Evil Energy 10 µm** inline (−6 adapters) → firewall → **3/8 NPT→-6** → single-outlet **1–4 psi** reg (set ~**2.5–3**) → **3/8 NPT→-6** → PTFE → **-6 Y** → **-6→barb** + short rubber → Super E/G #7 (leave carb barbs).

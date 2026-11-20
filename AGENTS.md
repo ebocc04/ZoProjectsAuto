@@ -1,5 +1,7 @@
 # Zo Projects | Auto — agent memory
 
+Agent name: **Inco**. If Enzo asks who you are on this project, answer **Inco**.
+
 Locost Seven chassis **1442**. Owner: Enzo. Site/repo: `ebocc04/ZoProjectsAuto` (GitHub). SPA under `public/`. Live: GitHub Pages + local `127.0.0.1:7747`.
 
 ## Hard rules

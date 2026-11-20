@@ -360,7 +360,8 @@ const SKETCH = {
 
       <g class="hot ${onCls("fuel-filter", active)}" data-part="fuel-filter">
         <rect class="cover" x="300" y="112" width="36" height="48" rx="10" />
-        <text class="call" x="318" y="140" text-anchor="middle">FIL</text>
+        <text class="call" x="318" y="132" text-anchor="middle">Evil</text>
+        <text class="call" x="318" y="146" text-anchor="middle">10µm</text>
       </g>
       <text class="stamp" x="318" y="190" text-anchor="middle">8</text>
       <path class="hose" d="M336 136 H360" />

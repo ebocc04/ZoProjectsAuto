@@ -96,7 +96,7 @@ window.ZO = {
       status: "replace",
       statusLabel: "Plumbing redo",
       summary:
-        "20 Nov 2026 plan: Edelbrock 17302 electric + Chase 5/16→−6, Evil Energy PTFE −6 (not CPE), tank bung 1/4 NPT→−6, single-outlet 1–4 psi 3/8 NPT reg with 3/8→−6 adapters, −6 Y, short rubber at #7 only. Full labeled BOM: public/fuel-an6-redo.html. Cap mechanical pump when electric is on. Set reg ~2.5–3 psi for Super E/G."
+        "20 Nov 2026 plan: Edelbrock 17302 electric + Chase 5/16→−6, Evil Energy PTFE −6 (not CPE), Evil Energy 10 µm inline filter with −6 adapters (HAVE), tank bung 1/4 NPT→−6, single-outlet 1–4 psi 3/8 NPT reg with 3/8→−6 adapters, −6 Y, short rubber at #7 only. Full labeled BOM: public/fuel-an6-redo.html. Cap mechanical pump when electric is on. Set reg ~2.5–3 psi for Super E/G."
     },
     {
       id: "cooling",
